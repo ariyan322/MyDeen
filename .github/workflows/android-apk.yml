@@ -21,7 +21,9 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm cache clean --force
+          npm install --no-audit --no-fund
 
       - name: Build web app
         run: npm run build
@@ -36,7 +38,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Capacitor Android
-        run: npm install @capacitor/android
+        run: npm install @capacitor/android --no-audit --no-fund
 
       - name: Add Android platform if missing
         run: |
