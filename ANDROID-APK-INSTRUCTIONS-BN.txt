@@ -1,0 +1,13 @@
+MyDeen Android APK তৈরির জন্য প্রস্তুতকৃত প্রজেক্ট
+
+মোবাইল দিয়ে APK তৈরির ধাপ:
+1. এই ZIP ফাইলটি GitHub-এ নতুন repository তৈরি করে upload করুন (Extract করে সব ফাইল upload করতে হবে; ZIP-টি repository-তে রেখে দিলেই workflow চলবে না)।
+2. Repository-এর Settings > Actions > General-এ গিয়ে Actions অনুমোদিত আছে কি না দেখুন।
+3. Actions ট্যাব খুলুন। Build MyDeen Android APK workflow নির্বাচন করে Run workflow চাপুন।
+4. কাজ শেষ হলে workflow run-এর নিচে Artifacts থেকে MyDeen-debug-apk ডাউনলোড করুন।
+5. ZIP artifact খুলে app-debug.apk বের করে Android ফোনে ইনস্টল করুন। Android Settings-এ browser/files app-কে “Install unknown apps” অনুমতি দিতে হতে পারে।
+
+নোট:
+- এটি debug APK; Play Store-এ প্রকাশের জন্য signed release build দরকার।
+- Google AI API key বা .env secrets APK-তে নিরাপদভাবে রাখা যায় না। API key থাকলে public repository-তে দেবেন না।
+- অ্যাপের সমস্ত runtime বৈশিষ্ট্য ও offline behaviour আলাদাভাবে পরীক্ষা করা দরকার।

@@ -1,0 +1,6 @@
+{
+  "name": "My Deen | মাই দ্বীন",
+  "description": "কুরআন ও সুন্নাহর আলোকে আমার দৈনন্দিন জীবন - Islamic lifestyle, daily worship tracking, Quran, Sunnah, tasks & accountability.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
