@@ -3,12 +3,8 @@ name: Build MyDeen Android APK
 on:
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   build:
-    name: Build MyDeen APK
     runs-on: ubuntu-latest
 
     steps:
@@ -18,20 +14,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-
-      - name: Check project files
-        run: |
-          test -f package.json
-          node --version
-          npm --version
-
-      - name: Clean npm cache
-        run: npm cache clean --force
+          node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: |
-          npm install --no-audit --no-fund --legacy-peer-deps
+        run: npm install
 
       - name: Build web app
         run: npm run build
@@ -40,13 +27,13 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: 21
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Verify Capacitor
-        run: npx cap --version
+      - name: Install Capacitor Android
+        run: npm install @capacitor/android
 
       - name: Add Android platform if missing
         run: |
@@ -57,7 +44,7 @@ jobs:
       - name: Sync Android project
         run: npx cap sync android
 
-      - name: Build Android APK
+      - name: Build APK
         run: |
           cd android
           chmod +x gradlew
@@ -68,5 +55,3 @@ jobs:
         with:
           name: MyDeen-Android-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 7
