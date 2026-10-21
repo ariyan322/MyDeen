@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build:
-    name: Build Android APK
+    name: Build MyDeen APK
     runs-on: ubuntu-latest
 
     steps:
@@ -18,12 +18,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "22"
+
+      - name: Check project files
+        run: |
+          test -f package.json
+          node --version
+          npm --version
+
+      - name: Clean npm cache
+        run: npm cache clean --force
 
       - name: Install dependencies
         run: |
-          npm cache clean --force
-          npm install --no-audit --no-fund
+          npm install --no-audit --no-fund --legacy-peer-deps
 
       - name: Build web app
         run: npm run build
@@ -37,8 +45,8 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Capacitor Android
-        run: npm install @capacitor/android --no-audit --no-fund
+      - name: Verify Capacitor
+        run: npx cap --version
 
       - name: Add Android platform if missing
         run: |
@@ -49,7 +57,7 @@ jobs:
       - name: Sync Android project
         run: npx cap sync android
 
-      - name: Build APK
+      - name: Build Android APK
         run: |
           cd android
           chmod +x gradlew
